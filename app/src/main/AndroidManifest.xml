@@ -2,29 +2,54 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
-        android:dataExtractionRules="@xml/data_extraction_rules"
-        android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.KvaesitsoPublicTransportPlugin"
         tools:targetApi="31">
+        <activity
+            android:name=".SettingsActivity"
+            android:exported="true"
+            android:label="@string/title_activity_settings"
+            android:theme="@style/Theme.KvaesitsoPublicTransportPlugin">
+            <intent-filter>
+                <action android:name="de.mm20.launcher2.action.PLUGIN_SETTINGS" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
         <provider
             android:name=".PublicTransportProvider"
             android:authorities="xyz.sirphotch.kvaesitsoplugin.publictransport"
-            android:exported="true">
+            android:exported="true"
+            android:label="@string/plugin_package_name"
+            tools:ignore="ExportedContentProvider">
+            <meta-data
+                android:name="de.mm20.launcher2.plugin.description"
+                android:value="@string/location_setting_description" />
 
             <intent-filter>
                 <action android:name="de.mm20.launcher2.action.PLUGIN" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-
         </provider>
 
+        <meta-data
+            android:name="de.mm20.launcher2.plugin.label"
+            android:value="@string/plugin_package_name" />
+        <meta-data
+            android:name="de.mm20.launcher2.plugin.description"
+            android:value="@string/plugin_description" />
+        <meta-data
+            android:name="de.mm20.launcher2.plugin.author"
+            android:value="github.com/Sir-Photch" />
     </application>
 
 </manifest>
