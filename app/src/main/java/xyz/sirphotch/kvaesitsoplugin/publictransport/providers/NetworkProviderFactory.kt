@@ -30,9 +30,10 @@ import de.schildbach.pte.VvoProvider
 import de.schildbach.pte.VvsProvider
 import de.schildbach.pte.VvvProvider
 import de.schildbach.pte.WienProvider
+import java.util.Collections
 
 object NetworkProviderFactory {
-    private val providerInstances: MutableMap<Provider, NetworkProvider> = mutableMapOf()
+    private val providerInstances: MutableMap<Provider, NetworkProvider> = Collections.synchronizedMap(mutableMapOf())
 
     fun get(provider: Provider): NetworkProvider =
         providerInstances.getOrPut(
