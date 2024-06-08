@@ -25,8 +25,9 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
-import xyz.sirphotch.kvaesitsoplugin.publictransport.data.Settings
+import xyz.sirphotch.kvaesitsoplugin.publictransport.data.dataStore
 import xyz.sirphotch.kvaesitsoplugin.publictransport.providers.NetworkProviderFactory
 import xyz.sirphotch.kvaesitsoplugin.publictransport.providers.Provider
 import java.io.IOException
@@ -46,7 +47,7 @@ class PublicTransportProvider : LocationProvider(
     private lateinit var enabledProviders: Flow<Set<Provider>>
 
     override fun onCreate(): Boolean {
-        enabledProviders = Settings.enabledProviders(context!!.applicationContext)
+        enabledProviders = context!!.applicationContext.dataStore.data.map { it.enabledProviders ?: emptySet() }
         return super.onCreate()
     }
 

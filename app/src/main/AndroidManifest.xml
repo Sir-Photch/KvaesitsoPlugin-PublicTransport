@@ -11,13 +11,10 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.KvaesitsoPublicTransportPlugin"
         tools:targetApi="31">
         <activity
             android:name=".SettingsActivity"
-            android:exported="true"
-            android:label="@string/title_activity_settings"
-            android:theme="@style/Theme.KvaesitsoPublicTransportPlugin">
+            android:exported="true">
             <intent-filter>
                 <action android:name="de.mm20.launcher2.action.PLUGIN_SETTINGS" />
                 <category android:name="android.intent.category.DEFAULT" />
