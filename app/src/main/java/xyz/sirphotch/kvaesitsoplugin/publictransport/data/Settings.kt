@@ -12,23 +12,38 @@ import xyz.sirphotch.kvaesitsoplugin.publictransport.providers.Provider
 import java.io.InputStream
 import java.io.OutputStream
 
+private const val SETTINGS_VERSION = 1
+
 @Serializable
 data class Settings(
+    val version: Int = SETTINGS_VERSION,
     val enabledProviders: Set<Provider>? = null,
-    val deduplicateResults: Boolean = false,
 )
 
 val Context.dataStore by dataStore("settings.json", SettingsSerializer)
 
 @OptIn(ExperimentalSerializationApi::class)
 object SettingsSerializer: Serializer<Settings> {
+    private val lenientJson = Json {
+        isLenient = true
+        ignoreUnknownKeys = true
+        explicitNulls = false
+        coerceInputValues = true
+    }
+
     override val defaultValue: Settings = Settings()
 
     override suspend fun readFrom(input: InputStream): Settings {
-        return Json.decodeFromStream(input)
+        val settings = lenientJson.decodeFromStream<Settings>(input)
+
+        if (settings.version < SETTINGS_VERSION) {
+            // TODO
+        }
+
+        return settings
     }
 
     override suspend fun writeTo(t: Settings, output: OutputStream) {
-        Json.encodeToStream(Settings.serializer(), t, output)
+        lenientJson.encodeToStream(Settings.serializer(), t, output)
     }
 }

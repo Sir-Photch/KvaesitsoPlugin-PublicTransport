@@ -1,6 +1,12 @@
 package xyz.sirphotch.kvaesitsoplugin.publictransport.providers
 
 import android.net.Uri
+import kotlinx.serialization.KSerializer
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.descriptors.PrimitiveKind
+import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
+import kotlinx.serialization.encoding.Decoder
+import kotlinx.serialization.encoding.Encoder
 import xyz.sirphotch.kvaesitsoplugin.publictransport.R
 
 enum class ProviderRegion {

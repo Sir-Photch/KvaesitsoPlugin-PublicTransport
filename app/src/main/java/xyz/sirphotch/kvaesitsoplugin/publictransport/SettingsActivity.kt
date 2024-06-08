@@ -92,9 +92,7 @@ fun ProviderGroupColumn(
     updateSettings: ((Settings) -> Settings) -> Unit,
     modifier: Modifier = Modifier
 ) {
-
     val enabledProviders by settings.map { it.enabledProviders }.collectAsState(null)
-    val deduplicateResult by settings.map { it.deduplicateResults }.collectAsState(false)
 
     Column(modifier.background(MaterialTheme.colorScheme.surface)) {
         Spacer(
