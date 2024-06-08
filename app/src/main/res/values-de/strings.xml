@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="app_name">Kvaesitso ÖPNV Plugin</string>
+    <string name="plugin_package_name">Öffentlicher Personennahverkehr</string>
+    <string name="location_setting_description">Suche nach ÖPNV-Haltestellen in deiner Nähe</string>
+    <string name="plugin_description">Durchsucht ÖPNV-Anbieter nach Abfahrten in deiner Nähe</string>
+</resources>
