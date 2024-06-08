@@ -1,4 +1,4 @@
-<img src="app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png"/>
+<img src="app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png"/>
 
 # Public transport plugin for Kvaesitso
 
