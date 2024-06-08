@@ -71,4 +71,9 @@
     <string name="region_ireland">Ireland</string>
     <string name="region_netherlands">Netherlands</string>
     <string name="region_europe">Europe</string>
+    <string name="location_category_train_station">Train station</string>
+    <string name="location_category_subway_station">Subway station</string>
+    <string name="location_category_tram_station">Tram stop</string>
+    <string name="location_category_bus_stop">Bus stop</string>
+    <string name="location_category_generic_stop">Stop</string>
 </resources>

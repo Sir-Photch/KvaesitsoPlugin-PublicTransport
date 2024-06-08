@@ -159,7 +159,7 @@ class PublicTransportProvider : LocationProvider(
                     return item
                 }
 
-            val (category, icon) = loc.products?.toCategory() ?: (null to null)
+            val (category, icon) = loc.products?.toLocalizedCategory() ?: (null to null)
 
             return item.copy(
                 label = loc.name ?: item.label,
@@ -176,7 +176,7 @@ class PublicTransportProvider : LocationProvider(
         provider: Provider
     ): Location? {
         val (location, departures) = this
-        val (category, icon) = location.products?.toCategory() ?: (null to null)
+        val (category, icon) = location.products?.toLocalizedCategory() ?: (null to null)
         return Location(
             id = provider.name + '/' + (location.id ?: return null),
             label = location.name ?: "",
@@ -205,13 +205,13 @@ class PublicTransportProvider : LocationProvider(
         )
     }
 
-    private fun Set<Product>.toCategory(): Pair<String, LocationIcon> = when {
-        contains(Product.HIGH_SPEED_TRAIN) || contains(Product.REGIONAL_TRAIN) || contains(Product.SUBURBAN_TRAIN) -> "Bahnhof" to LocationIcon.Train
-        contains(Product.SUBWAY) -> "U-Bahnhof" to LocationIcon.Subway
-        contains(Product.TRAM) -> "Straßenbahnhaltestelle" to LocationIcon.Tram
-        contains(Product.BUS) -> "Bushaltestelle" to LocationIcon.Bus
-        else -> "Haltestelle" to LocationIcon.GenericTransit
-    }
+    private fun Set<Product>.toLocalizedCategory(): Pair<String, LocationIcon> = when {
+        contains(Product.HIGH_SPEED_TRAIN) || contains(Product.REGIONAL_TRAIN) || contains(Product.SUBURBAN_TRAIN) -> R.string.location_category_train_station to LocationIcon.Train
+        contains(Product.SUBWAY) -> R.string.location_category_subway_station to LocationIcon.Subway
+        contains(Product.TRAM) -> R.string.location_category_tram_station to LocationIcon.Tram
+        contains(Product.BUS) -> R.string.location_category_bus_stop to LocationIcon.Bus
+        else -> R.string.location_category_generic_stop to LocationIcon.GenericTransit
+    }.let { context!!.applicationContext.resources.getString(it.first) to it.second }
 
     private fun Product.toLineType(): LineType? = when (this) {
         Product.HIGH_SPEED_TRAIN -> LineType.HighSpeedTrain
