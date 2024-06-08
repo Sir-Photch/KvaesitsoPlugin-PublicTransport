@@ -4,13 +4,11 @@ import android.graphics.Color
 import android.util.Log
 import de.mm20.launcher2.plugin.config.QueryPluginConfig
 import de.mm20.launcher2.plugin.config.StorageStrategy
-import de.mm20.launcher2.sdk.base.GetParams
 import de.mm20.launcher2.sdk.base.RefreshParams
 import de.mm20.launcher2.sdk.base.SearchParams
 import de.mm20.launcher2.sdk.locations.Location
 import de.mm20.launcher2.sdk.locations.LocationProvider
 import de.mm20.launcher2.sdk.locations.LocationQuery
-import de.mm20.launcher2.search.location.Address
 import de.mm20.launcher2.search.location.Attribution
 import de.mm20.launcher2.search.location.Departure
 import de.mm20.launcher2.search.location.LineType
@@ -47,7 +45,8 @@ class PublicTransportProvider : LocationProvider(
     private lateinit var enabledProviders: Flow<Set<Provider>>
 
     override fun onCreate(): Boolean {
-        enabledProviders = context!!.applicationContext.dataStore.data.map { it.enabledProviders ?: emptySet() }
+        enabledProviders =
+            context!!.applicationContext.dataStore.data.map { it.enabledProviders ?: emptySet() }
         return super.onCreate()
     }
 
@@ -185,11 +184,7 @@ class PublicTransportProvider : LocationProvider(
             longitude = location.lonAsDouble,
             icon = icon,
             category = category,
-            attribution = Attribution(
-                provider.name,
-                iconUrl = null,
-                url = null,
-            ),
+            attribution = provider.toAttribution(),
             departures = departures.toDepartures(),
         )
     }
@@ -240,4 +235,10 @@ class PublicTransportProvider : LocationProvider(
                 longitude = this@distanceTo.lonAsDouble
             }
         )
+
+    private fun Provider.toAttribution(): Attribution = Attribution(
+        text = context!!.resources.getString(localizedName()),
+        url = url(),
+        iconUrl = null
+    )
 }

@@ -41,6 +41,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.CoroutineScope
@@ -50,7 +51,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
-import net.pearx.kasechange.toTitleCase
 import xyz.sirphotch.kvaesitsoplugin.publictransport.data.Settings
 import xyz.sirphotch.kvaesitsoplugin.publictransport.data.dataStore
 import xyz.sirphotch.kvaesitsoplugin.publictransport.providers.Provider
@@ -128,7 +128,7 @@ fun ProviderGroupColumn(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Text(
-                                region.name.toTitleCase(),
+                                stringResource(region.localizedName()),
                                 style = MaterialTheme.typography.headlineSmall,
                             )
                             Icon(
@@ -149,7 +149,9 @@ fun ProviderGroupColumn(
                                         verticalAlignment = Alignment.CenterVertically
                                     ) {
                                         Text(
-                                            provider.localizedName(),
+                                            stringResource(provider.localizedName()) + (stringResource(
+                                                provider.localizedShortName()
+                                            ).takeIf { it.isNotBlank() }?.let { " ($it)" } ?: ""),
                                             style = MaterialTheme.typography.labelLarge,
                                             modifier = Modifier
                                                 .fillMaxWidth(0.66f)
