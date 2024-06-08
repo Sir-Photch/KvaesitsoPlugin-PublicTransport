@@ -28,6 +28,7 @@ fun KvaesitsoPublicTransportPluginTheme(
     }
 
     MaterialTheme(
-        content = content
+        colorScheme = colorScheme,
+        content = content,
     )
 }

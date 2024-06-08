@@ -41,6 +41,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -70,6 +71,7 @@ class SettingsActivity : ComponentActivity() {
         this.actionBar?.hide()
         enableEdgeToEdge()
         setContent {
+            window.navigationBarColor = MaterialTheme.colorScheme.surface.toArgb()
             KvaesitsoPublicTransportPluginTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     ProviderGroupColumn(
