@@ -5,6 +5,19 @@
 This plugin enables querying your local public transport providers for stops and departures near you, while using your favorite launcher app [Kvaesitso](https://github.com/MM2-0/Kvaesitso).
 It is a thin wrapper around [schildbach/public-transport-enabler](https://github.com/schildbach/public-transport-enabler) and integrates its providers into Kvaesitso's location search.
 
+## Usage
+
+Download the .apk from this repository (TODO) and enable it in the plugin settings. Then, go to the settings of the plugin (gears on the top right) when you have opened the settings of the plugin. Now, select the providers you want to get search results for. Note that if you activate multiple providers whose regions overlap, you might get duplicate results. Then, go back to your homescreen and start searching! (Make sure you have location search enabled in your filterbar and Kvaesitso has location permissions.)
+
+### Video demo:
+<details>
+  <summary>Expand</summary>
+
+  [plugin-usage.webm](https://github.com/Sir-Photch/KvaesitsoPlugin-PublicTransport/assets/47949835/724fcde6-c758-4e75-8725-6b8d9a3813e3)
+</details>
+
+
+
 ## Translation
 
 You can translate this plugin using [Weblate](https://hosted.weblate.org/projects/kvaesitsoplugin-publictransport/localization/).
