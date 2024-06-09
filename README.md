@@ -19,7 +19,7 @@ Currently, all providers of [schildbach/public-transport-enabler](https://github
 
 ## Roadmap
 
-This is a list of things that are todo:
+This is a list of things that are TODO:
 
 - [ ] Add support for Providers that require an API key
 - [ ] Add icons to location attribution
