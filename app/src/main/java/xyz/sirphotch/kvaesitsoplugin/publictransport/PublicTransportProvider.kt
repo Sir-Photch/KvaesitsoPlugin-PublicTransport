@@ -32,6 +32,7 @@ import java.io.IOException
 import java.time.Duration
 import java.time.ZoneId
 import java.time.ZonedDateTime
+import kotlin.time.Duration.Companion.minutes
 
 import de.schildbach.pte.dto.Location as PteLocation
 import de.schildbach.pte.dto.Departure as PteDeparture
@@ -113,6 +114,9 @@ class PublicTransportProvider : LocationProvider(
     }
 
     override suspend fun refresh(item: Location, params: RefreshParams): Location? {
+        if (System.currentTimeMillis() - params.lastUpdated < 2.minutes.inWholeMilliseconds)
+            return item
+
         val (provStr, id) = item.id.split('/', limit = 2)
         val provider =
             provStr.runCatching { Provider.valueOf(this) }.getOrNull() ?: return null
@@ -237,7 +241,11 @@ class PublicTransportProvider : LocationProvider(
         )
 
     private fun Provider.toAttribution(): Attribution = Attribution(
-        text = context!!.resources.getString(localizedName()),
+        text = context!!.resources.let {
+            it.getString(localizedShortName())
+                .takeIf { it.isNotBlank() }
+                ?: it.getString(localizedName())
+        },
         url = url(),
         iconUrl = null
     )
