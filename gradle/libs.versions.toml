@@ -1,20 +1,20 @@
 [versions]
-agp = "8.6.0-alpha04"
+agp = "8.6.0-alpha08"
 kotlin = "2.0.0"
 coreKtx = "1.13.1"
 appcompat = "1.7.0"
 material = "1.12.0"
 
-lifecycleRuntimeKtx = "2.8.1"
+lifecycleRuntimeKtx = "2.8.2"
 activityCompose = "1.9.0"
-composeBom = "2024.05.00"
+composeBom = "2024.06.00"
 material3Android = "1.2.1"
 datastore = "1.1.1"
 
 serialization = "1.6.3"
 launcherSdk = "2.0.0-SNAPSHOT"
 kasechange = "1.4.1"
-lifecycleRuntimeComposeAndroid = "2.8.1"
+lifecycleRuntimeComposeAndroid = "2.8.2"
 navigationCompose = "2.7.7"
 
 [libraries]
@@ -27,7 +27,6 @@ androidx-activity-compose = { group = "androidx.activity", name = "activity-comp
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
 androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
-androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3-android = { group = "androidx.compose.material3", name = "material3-android", version.ref = "material3Android" }
 androidx-datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore" }
 
