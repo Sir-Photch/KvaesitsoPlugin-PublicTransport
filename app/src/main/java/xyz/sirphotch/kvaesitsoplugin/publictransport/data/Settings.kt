@@ -18,6 +18,7 @@ private const val SETTINGS_VERSION = 1
 data class Settings(
     val version: Int = SETTINGS_VERSION,
     val enabledProviders: Set<Provider>? = null,
+    val maxDepartures: Int = 7,
 )
 
 val Context.dataStore by dataStore("settings.json", SettingsSerializer)

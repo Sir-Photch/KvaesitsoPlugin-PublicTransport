@@ -76,4 +76,6 @@
     <string name="location_category_tram_station">Tram stop</string>
     <string name="location_category_bus_stop">Bus stop</string>
     <string name="location_category_generic_stop">Stop</string>
+    <string name="max_departures">Number of Departures</string>
+    <string name="max_departures_summary">Maximum number of departures per stop to get</string>
 </resources>

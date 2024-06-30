@@ -25,6 +25,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
+import xyz.sirphotch.kvaesitsoplugin.publictransport.data.Settings
 import xyz.sirphotch.kvaesitsoplugin.publictransport.data.dataStore
 import xyz.sirphotch.kvaesitsoplugin.publictransport.providers.NetworkProviderFactory
 import xyz.sirphotch.kvaesitsoplugin.publictransport.providers.Provider
@@ -43,11 +44,11 @@ class PublicTransportProvider : LocationProvider(
         storageStrategy = StorageStrategy.StoreCopy
     )
 ) {
-    private lateinit var enabledProviders: Flow<Set<Provider>>
+    private lateinit var settings: Flow<Settings>
 
     override fun onCreate(): Boolean {
-        enabledProviders =
-            context!!.applicationContext.dataStore.data.map { it.enabledProviders ?: emptySet() }
+        settings =
+            context!!.applicationContext.dataStore.data
         return super.onCreate()
     }
 
@@ -56,7 +57,11 @@ class PublicTransportProvider : LocationProvider(
             return emptyList()
 
         return withContext(Dispatchers.IO) {
-            val enabledProviders = enabledProviders.firstOrNull() ?: return@withContext emptyList()
+            val (enabledProviders, maxDepartures) =
+                settings.map { it.enabledProviders to it.maxDepartures }
+                    .firstOrNull() ?: return@withContext emptyList()
+
+            enabledProviders ?: return@withContext emptyList()
 
             fun NetworkProvider.nearbyLocations(): List<PteLocation> =
                 runCatching {
@@ -100,7 +105,7 @@ class PublicTransportProvider : LocationProvider(
                                 queryDepartures(
                                     it.id,
                                     null,
-                                    7,
+                                    maxDepartures,
                                     false
                                 ).stationDepartures.flatMap { it.departures }
                             }.onFailure {
@@ -121,8 +126,13 @@ class PublicTransportProvider : LocationProvider(
         val provider =
             provStr.runCatching { Provider.valueOf(this) }.getOrNull() ?: return null
 
-        val availableProviders = enabledProviders.firstOrNull() ?: return null
-        if (!availableProviders.contains(provider)) return null
+        val (enabledProviders, maxDepartures) =
+            settings.map { it.enabledProviders to it.maxDepartures }
+                .firstOrNull() ?: return null
+
+        enabledProviders ?: return null
+
+        if (!enabledProviders.contains(provider)) return null
 
         with(NetworkProviderFactory.get(provider)) {
             if (!hasCapabilities(NetworkProvider.Capability.DEPARTURES)) return null
@@ -132,7 +142,7 @@ class PublicTransportProvider : LocationProvider(
                     queryDepartures(
                         id,
                         null,
-                        7,
+                        maxDepartures,
                         false
                     )
                 }

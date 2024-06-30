@@ -25,16 +25,19 @@ import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowDropDown
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Slider
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -56,6 +59,7 @@ import xyz.sirphotch.kvaesitsoplugin.publictransport.data.Settings
 import xyz.sirphotch.kvaesitsoplugin.publictransport.data.dataStore
 import xyz.sirphotch.kvaesitsoplugin.publictransport.providers.Provider
 import xyz.sirphotch.kvaesitsoplugin.publictransport.ui.theme.KvaesitsoPublicTransportPluginTheme
+import kotlin.math.roundToInt
 
 class SettingsActivity : ComponentActivity() {
 
@@ -85,7 +89,7 @@ class SettingsActivity : ComponentActivity() {
     }
 }
 
-@OptIn(ExperimentalFoundationApi::class)
+@OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun ProviderGroupColumn(
     settings: Flow<Settings>,
@@ -93,6 +97,7 @@ fun ProviderGroupColumn(
     modifier: Modifier = Modifier
 ) {
     val enabledProviders by settings.map { it.enabledProviders }.collectAsState(null)
+    val maxDepartures by settings.map { it.maxDepartures }.collectAsState(null)
 
     Column(modifier.background(MaterialTheme.colorScheme.surface)) {
         Spacer(
@@ -115,6 +120,54 @@ fun ProviderGroupColumn(
                     .navigationBarsPadding()
             ) {
                 Column(Modifier.verticalScroll(rememberScrollState())) {
+                    var sliderValue by remember(maxDepartures) {
+                        mutableFloatStateOf(
+                            maxDepartures?.toFloat() ?: 0.0f
+                        )
+                    }
+
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 12.dp)
+                    ) {
+                        Text(
+                            text = stringResource(R.string.max_departures),
+                            style = MaterialTheme.typography.headlineSmall,
+                        )
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Slider(
+                                value = sliderValue,
+                                onValueChange = { value ->
+                                    sliderValue = value
+                                    updateSettings {
+                                        it.copy(maxDepartures = value.roundToInt())
+                                    }
+                                },
+                                valueRange = 5f..20f,
+                                steps = 10,
+                                modifier = Modifier.fillMaxWidth(0.85f)
+                            )
+                            if (maxDepartures != null) {
+                                Text(
+                                    text = maxDepartures.toString(),
+                                    style = MaterialTheme.typography.labelLarge,
+                                )
+                            }
+                        }
+                        Text(
+                            modifier = Modifier.padding(start = 6.dp),
+                            text = stringResource(R.string.max_departures_summary),
+                            style = MaterialTheme.typography.labelSmall,
+                        )
+                    }
+
+                    HorizontalDivider(thickness = 2.dp)
+
                     for ((region, providers) in Provider.entries.groupBy { it.region() }) {
                         var showRegionProviders by remember { mutableStateOf(false) }
                         Row(
@@ -193,12 +246,12 @@ fun ProviderGroupColumn(
 )
 @Composable
 fun GreetingPreview() {
-    val mockSettings = Settings()
+    var mockSettings = Settings()
 
     KvaesitsoPublicTransportPluginTheme {
         ProviderGroupColumn(
             flow { emit(mockSettings) },
-            updateSettings = { it(mockSettings) }
+            updateSettings = { mockSettings = it(mockSettings) }
         )
     }
 }
