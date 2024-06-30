@@ -12,7 +12,7 @@ material3Android = "1.2.1"
 datastore = "1.1.1"
 
 serialization = "1.6.3"
-launcherSdk = "2.0.0-SNAPSHOT"
+launcherSdk = "2.0.1"
 kasechange = "1.4.1"
 lifecycleRuntimeComposeAndroid = "2.8.2"
 navigationCompose = "2.7.7"

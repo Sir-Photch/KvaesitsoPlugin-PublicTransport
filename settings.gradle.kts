@@ -16,7 +16,8 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-        mavenLocal()
+        /* for snapshots */
+        // mavenLocal()
     }
 }
 
