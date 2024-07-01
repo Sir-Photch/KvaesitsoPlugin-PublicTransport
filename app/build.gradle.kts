@@ -13,7 +13,8 @@ android {
         applicationId = "xyz.sirphotch.kvaesitsoplugin.publictransport"
         minSdk = 30
         targetSdk = 34
-        versionCode = 1
+        // YYYYMMNN where NN is number of release of month MM
+        versionCode = 20240601
         versionName = "1.0"
 
         vectorDrawables {
@@ -57,7 +58,16 @@ android {
 }
 
 dependencies {
-    implementation(project(":pte"))
+    implementation(project(":pte")) {
+        exclude(
+            group = "net.sf.kxml",
+            module = "kxml2"
+        )
+        exclude(
+            group = "org.json",
+            module = "json"
+        )
+    }
     implementation(libs.launchersdk)
     implementation(libs.kasechange)
     implementation(libs.kotlinx.serialization)
@@ -72,6 +82,6 @@ dependencies {
     implementation(libs.androidx.material3.android)
     implementation(libs.androidx.lifecycle.runtime.compose.android)
     implementation(libs.androidx.navigation.compose)
-    debugImplementation(libs.androidx.ui.tooling)
+    implementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 }
