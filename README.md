@@ -7,7 +7,11 @@ It is a thin wrapper around [schildbach/public-transport-enabler](https://github
 
 ## Usage
 
-Download the .apk from this repository (TODO) and enable it in the plugin settings. Then, go to the settings of the plugin (gears on the top right) when you have opened the settings of the plugin. Now, select the providers you want to get search results for. Note that if you activate multiple providers whose regions overlap, you might get duplicate results. Then, go back to your homescreen and start searching! (Make sure you have location search enabled in your filterbar and Kvaesitso has location permissions.)
+[<img src="https://github.com/machiav3lli/oandbackupx/blob/034b226cea5c1b30eb4f6a6f313e4dadcbb0ece4/badge_github.png"
+    alt="Get it on GitHub"
+    height="80">](https://github.com/Sir-Photch/KvaesitsoPlugin-PublicTransport/releases)
+
+Download the .apk from the release page of this repository and enable it in the plugin settings. Then, go to the settings of the plugin (gears on the top right) when you have opened the settings of the plugin. Now, select the providers you want to get search results for. Note that if you activate multiple providers whose regions overlap, you might get duplicate results. Then, go back to your homescreen and start searching! (Make sure you have location search enabled in your filterbar and Kvaesitso has location permissions.)
 
 ### Video demo:
 <details>
