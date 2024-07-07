@@ -38,7 +38,7 @@ Currently, all providers of [schildbach/public-transport-enabler](https://github
 
 This is a list of things that are TODO:
 
-- [ ] Indicate that setup is required when no provider is selected
+- [x] Indicate that setup is required when no provider is selected (v1.1)
 - [ ] Add support for Providers that require an API key
 - [ ] Add icons to location attribution
 - [ ] Redesign settings screen (sometime)
