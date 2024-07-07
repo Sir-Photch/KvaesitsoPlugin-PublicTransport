@@ -78,4 +78,5 @@
     <string name="location_category_generic_stop">Stop</string>
     <string name="max_departures">Number of departures</string>
     <string name="max_departures_summary">Maximum number of departures per stop to get</string>
+    <string name="plugin_state_setup_required">No providers are enabled for public transport search</string>
 </resources>

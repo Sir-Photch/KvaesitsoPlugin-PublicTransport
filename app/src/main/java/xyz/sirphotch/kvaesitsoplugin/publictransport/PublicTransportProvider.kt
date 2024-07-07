@@ -1,9 +1,11 @@
 package xyz.sirphotch.kvaesitsoplugin.publictransport
 
+import android.content.Intent
 import android.graphics.Color
 import android.util.Log
 import de.mm20.launcher2.plugin.config.QueryPluginConfig
 import de.mm20.launcher2.plugin.config.StorageStrategy
+import de.mm20.launcher2.sdk.PluginState
 import de.mm20.launcher2.sdk.base.RefreshParams
 import de.mm20.launcher2.sdk.base.SearchParams
 import de.mm20.launcher2.sdk.locations.Location
@@ -51,6 +53,18 @@ class PublicTransportProvider : LocationProvider(
             context!!.applicationContext.dataStore.data
         return super.onCreate()
     }
+
+    override suspend fun getPluginState(): PluginState =
+        with(settings.map { it.enabledProviders }.firstOrNull()) {
+            when {
+                isNullOrEmpty() -> PluginState.SetupRequired(
+                    Intent(context!!, SettingsActivity::class.java),
+                    context!!.getString(R.string.plugin_state_setup_required)
+                )
+
+                else -> super.getPluginState()
+            }
+        }
 
     override suspend fun search(query: LocationQuery, params: SearchParams): List<Location> {
         if (!params.allowNetwork || query.query.length < 3)
