@@ -13,6 +13,10 @@ It is a thin wrapper around [schildbach/public-transport-enabler](https://github
 
 Download the .apk from the release page of this repository and enable it in the plugin settings. Then, go to the settings of the plugin (gears on the top right) when you have opened the settings of the plugin. Now, select the providers you want to get search results for. Note that if you activate multiple providers whose regions overlap, you might get duplicate results. Then, go back to your homescreen and start searching! (Make sure you have location search enabled in your filterbar and Kvaesitso has location permissions.)
 
+[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" alt="Get it on F-Droid" height="80">](https://fdroid.mm20.de/)
+
+You may as well get the .apk from MM2-0's F-Droid repository. Instructions on how to add it to your client can be found in the [README of Kvaesitso](https://github.com/MM2-0/Kvaesitso/blob/main/readme.md#using-an-f-droid-client-and-mm20s-repo).
+
 ### Video demo:
 <details>
   <summary>Expand</summary>
