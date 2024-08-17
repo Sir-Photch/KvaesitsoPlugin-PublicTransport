@@ -7,15 +7,15 @@ plugins {
 
 android {
     namespace = "xyz.sirphotch.kvaesitsoplugin.publictransport"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "xyz.sirphotch.kvaesitsoplugin.publictransport"
         minSdk = 30
-        targetSdk = 34
+        targetSdk = 35
         // YYYYMMNN where NN is number of release of month MM
-        versionCode = 20240701
-        versionName = "1.1"
+        versionCode = 20240801
+        versionName = "1.2"
 
         vectorDrawables {
             useSupportLibrary = true
@@ -38,11 +38,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_22
+        targetCompatibility = JavaVersion.VERSION_22
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "22"
     }
     buildFeatures {
         compose = true
